@@ -149,7 +149,13 @@ class OrderController extends Controller
 
 
     public function apiProductsOut(){
-        $product = Order::all();
+        if(Auth::user()->role == 'customer'){
+            $customer_id = Customer::where('user_id',Auth::user()->id)->first()->id;
+            $product = Order::where('customer_id', $customer_id)->get();
+        }
+        else{
+            $product = Order::all();
+        }
 
         return Datatables::of($product)
             ->addColumn('products_name', function ($product){
