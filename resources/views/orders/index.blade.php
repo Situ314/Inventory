@@ -4,7 +4,7 @@
 @section('top')
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
-    <!-- Log on to codeastro.com for more projects! -->
+
     <!-- daterange picker -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/bootstrap-daterangepicker/daterangepicker.css') }}">
     <!-- bootstrap datepicker -->
@@ -51,7 +51,7 @@ orders.form')
     <script src=" {{ asset('assets/bower_components/datatables.net/js/jquery.dataTables.min.js') }} "></script>
     <script src="{{ asset('assets/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js') }} "></script>
 
-    <!-- Log on to codeastro.com for more projects! -->
+
     <!-- InputMask -->
     <script src="{{ asset('assets/plugins/input-mask/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('assets/plugins/input-mask/jquery.inputmask.date.extensions.js') }}"></script>

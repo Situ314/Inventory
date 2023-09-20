@@ -1,5 +1,5 @@
 <div class="modal fade" id="modal-form" tabindex="1" role="dialog" aria-hidden="true" data-backdrop="static">
-    <div class="modal-dialog"><!-- Log on to codeastro.com for more projects! -->
+    <div class="modal-dialog">
         <div class="modal-content">
             <form  id="form-item" method="post" class="form-horizontal" data-toggle="validator" enctype="multipart/form-data" >
                 {{ csrf_field() }} {{ method_field('POST') }}
@@ -16,12 +16,21 @@
 
 
                     <div class="box-body">
-                        <div class="form-group">
-                            <label >Customer</label>
-                            {!! Form::select('customer_id', $customers, null, ['class' => 'form-control select', 'placeholder' => '-- Choose Customer --', 'id' => 'customer_id', 'required']) !!}
-                            <span class="help-block with-errors"></span>
-                        </div>
+                        @if(\Auth::user()->role == 'admin' || \Auth::user()->role == 'staff')
+                            <div class="form-group">
+                                <label >Customer</label>
+                                {!! Form::select('customer_id', $customers, null, ['class' => 'form-control select', 'placeholder' => '-- Choose Customer --', 'id' => 'customer_id', 'required']) !!}
+                                <span class="help-block with-errors"></span>
+                            </div>
+                        @else
+                            <div class="form-group">
+                                <label >Customer</label>
+                                <input hidden name="customer_id" value="{{ \App\Customer::where('user_id', \Auth::user()->id)->first()->id }}">
+                                <input readonly name="customer_name" class="form-control" value="{{ \App\Customer::where('user_id', \Auth::user()->id)->first()->name }}">
+                                <span class="help-block with-errors"></span>
+                            </div>
 
+                        @endif
 
 
                         <div class="form-group">
@@ -70,7 +79,7 @@
             </form>
         </div>
         <!-- /.modal-content -->
-    </div><!-- Log on to codeastro.com for more projects! -->
+    </div>
     <!-- /.modal-dialog -->
 </div>
 <!-- /.modal -->

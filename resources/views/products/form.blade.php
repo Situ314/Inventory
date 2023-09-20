@@ -65,5 +65,5 @@
         <!-- /.modal-content -->
     </div>
     <!-- /.modal-dialog -->
-</div><!-- Log on to codeastro.com for more projects! -->
+</div>
 <!-- /.modal -->

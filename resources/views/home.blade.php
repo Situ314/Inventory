@@ -4,9 +4,9 @@
 @endsection
 
 @section('content')
+    @if(\Auth::user()->role == 'admin')
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        <!-- Log on to codeastro.com for more projects! -->
         <div class="col-lg-3 col-xs-6">
             <!-- small box -->
             <div class="small-box bg-aqua">
@@ -70,9 +70,7 @@
         </div>
         <!-- ./col -->
     </div>
-    <!-- Log on to codeastro.com for more projects! -->
-
-
+     @endif
     <div class="row">
 
         <!-- ./col -->
@@ -80,12 +78,12 @@
             <!-- small box -->
             <div class="small-box bg-primary">
                 <div class="inner">
-                    <h3>{{ \App\Order::count()  }}</h3>
+                    <h3>{{ (\Auth::user()->role == 'customer') ? \App\Order::where('customer_id', \App\Customer::where('user_id', \Auth::user()->id)->first()->id)->get()->count() : \App\Order::count()  }}</h3>
 
                     <p>Total Orders</p>
                 </div>
                 <div class="icon">
-                    <i class="fa fa-minus"></i>
+                    <i class="fa fa-shopping-basket"></i>
                 </div>
                 <a href="{{ route('productsOut.index') }}" class="small-box-footer">More info <i
                             class="fa fa-arrow-circle-right"></i></a>
@@ -93,7 +91,7 @@
         </div>
         <!-- ./col -->
         <div id="container" class=" col-xs-6"></div>
-    </div><!-- Log on to codeastro.com for more projects! -->
+    </div>
 
 @endsection
 

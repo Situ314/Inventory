@@ -24,7 +24,7 @@
                     </div>
                     <!-- /.box-body -->
 
-                </div><!-- Log on to codeastro.com for more projects! -->
+                </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger pull-left" data-dismiss="modal">Cancel</button>

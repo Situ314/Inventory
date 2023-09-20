@@ -7,6 +7,7 @@ use App\Customer;
 use App\Product;
 use App\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 
@@ -14,7 +15,7 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('role:admin,staff');
+        $this->middleware('role:admin,staff,customer');
     }
     /**
      * Display a listing of the resource.
@@ -23,8 +24,6 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $o = Order::find(4);
-//        dd($o->products);
         $products = Product::orderBy('name','ASC')
             ->get()
             ->pluck('name','id');
@@ -32,7 +31,13 @@ class OrderController extends Controller
         $customers = Customer::get()
             ->pluck('name','id');
 
-        $invoice_data = Order::all();
+        if(Auth::user()->role == 'customer'){
+            $customer_id = Customer::where('user_id',Auth::user()->id)->first()->id;
+            $invoice_data = Order::where('customer_id', $customer_id)->get();
+        }
+        else{
+            $invoice_data = Order::all();
+        }
 
         return view('orders.index', compact('products','customers', 'invoice_data'));
     }

@@ -2,7 +2,7 @@
 
 
 @section('top')
-    <!-- DataTables --><!-- Log on to codeastro.com for more projects! -->
+    <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset('assets/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css') }}">
 @endsection
 
@@ -35,7 +35,7 @@
                 </thead>
                 <tbody></tbody>
             </table>
-        </div><!-- Log on to codeastro.com for more projects! -->
+        </div>
         <!-- /.box-body -->
     </div>
 
