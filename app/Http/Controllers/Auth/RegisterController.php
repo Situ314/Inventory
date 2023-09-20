@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Customer;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -27,7 +29,7 @@ class RegisterController extends Controller {
 	 *
 	 * @var string
 	 */
-	protected $redirectTo = '/user';
+	protected $redirectTo = '/home';
 
 	/**
 	 * Create a new controller instance.
@@ -35,7 +37,7 @@ class RegisterController extends Controller {
 	 * @return void
 	 */
 	public function __construct() {
-		$this->middleware('role:admin,staff');
+		//$this->middleware('role:admin,staff,customer');
 	}
 
 	/**
@@ -59,10 +61,23 @@ class RegisterController extends Controller {
 	 * @return \App\User
 	 */
 	protected function create(array $data) {
-		return User::create([
-			'name' => $data['name'],
-			'email' => $data['email'],
-			'password' => Hash::make($data['password']),
-		]);
+        $user = User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        Customer::create([
+            'name' => $data['name'],
+            'address' => $data['address'],
+            'phone' => $data['phone'],
+            'user_id' => $user->id,
+        ]);
+
+        if(Auth::user())
+		    return Auth::user();
+        else
+            return $user;
 	}
+
 }
